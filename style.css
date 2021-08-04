@@ -18,3 +18,9 @@
   fill: #551aaf;
   text-anchor: middle;
 }
+
+.statespot {
+  background-color: lightgrey;
+  color: white;
+  text-anchor: middle;
+}
