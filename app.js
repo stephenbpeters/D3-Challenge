@@ -23,7 +23,7 @@ var chartGroup = svg.append("g")
 // Import Data
 d3.csv("data.csv").then(function (ourData) {
 
-  // Step 1: Parse Data/Cast as numbers
+  // Parse Data/Cast as numbers
   // ==============================
   ourData.forEach(function (data) {
     data.income = +data.income;
@@ -40,12 +40,12 @@ d3.csv("data.csv").then(function (ourData) {
     .domain([20, d3.max(ourData, d => d.obesity)])
     .range([height, 0]);
 
-  // Step 3: Create axis functions
+  // Create axis functions
   // ==============================
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
 
-  // Step 4: Append Axes to the chart
+  // Append Axes to the chart
   // ==============================
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
@@ -54,7 +54,7 @@ d3.csv("data.csv").then(function (ourData) {
   chartGroup.append("g")
     .call(leftAxis);
 
-  // Step 5: Create Circles
+  // Create Circles
   // ==============================
   var circlesGroup = chartGroup.selectAll("circle")
     .data(ourData)
@@ -74,6 +74,7 @@ d3.csv("data.csv").then(function (ourData) {
       toolTip.hide(data);
     });
 
+    // append our state abbreviations and mouseovers
   circlesGroup.append("text")
     // .attr("class", function(d) {return `stateabbr ${d.abbr}`} )
     .attr("class", function (d) { return `statespot` })
@@ -91,7 +92,7 @@ d3.csv("data.csv").then(function (ourData) {
 
 
 
-  // Step 6: Initialize tool tip
+  // Initialize tool tip
   // ==============================
   var toolTip = d3.tip()
     .attr("class", "tooltip")
@@ -100,19 +101,9 @@ d3.csv("data.csv").then(function (ourData) {
       return (`${d.state}<br>Income: ${d.income}<br>Obesity: ${d.obesity}`);
     });
 
-  // Step 7: Create tooltip in the chart
+  // Create tooltips in the chart
   // ==============================
   chartGroup.call(toolTip);
-
-  // Step 8: Create event listeners to display and hide the tooltip
-  // ==============================
-  // circlesGroup.on("click", function(data) {
-  //   toolTip.show(data, this);
-  // })
-  //   // onmouseout event
-  //   .on("mouseout", function(data, index) {
-  //     toolTip.hide(data);
-  //   });
 
   // Create axes labels
   chartGroup.append("text")
